@@ -124,6 +124,8 @@ const CameraWithFrame = ({ imageSource, clientLogo }: CameraWithFrameProps) => {
           />
           {clientLogo && clientLogoComponent()}
           
+          <button onClick={toggleCamera}>Alternar Câmera</button>
+          
           <IconButton
             sx={{
               position: "absolute",
@@ -136,7 +138,7 @@ const CameraWithFrame = ({ imageSource, clientLogo }: CameraWithFrameProps) => {
                 backgroundColor: "white",
               },
             }}
-            onClick={toggleCamera}
+            onClick={captureImage}
           >
             <CameraAlt />
           </IconButton>
