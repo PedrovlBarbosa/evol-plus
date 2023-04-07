@@ -27,7 +27,7 @@ const CameraWithFrame = ({ imageSource, clientLogo }: CameraWithFrameProps) => {
         if (useFrontCamera) return { facingMode: { exact: "user" } };
         return { facingMode: { exact: "environment" } };
       }
-      return true;
+      return useFrontCamera ? { video: { facingMode: "user" } } : true;
     };
 
     let stream: MediaStream | undefined;
@@ -126,7 +126,7 @@ const CameraWithFrame = ({ imageSource, clientLogo }: CameraWithFrameProps) => {
           {clientLogo && clientLogoComponent()}
           
           <button onClick={toggleCamera}>Alternar Câmera</button>
-          
+
           <IconButton
             sx={{
               position: "absolute",
