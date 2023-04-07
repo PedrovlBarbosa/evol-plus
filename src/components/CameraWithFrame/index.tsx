@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import { CameraAlt } from "@mui/icons-material";
-import { IconButton } from "@mui/material";
+import { IconButton, ToggleButton } from "@mui/material";
 
 interface CameraWithFrameProps {
   imageSource: string;
@@ -123,6 +123,7 @@ const CameraWithFrame = ({ imageSource, clientLogo }: CameraWithFrameProps) => {
             alt="camera"
           />
           {clientLogo && clientLogoComponent()}
+          
           <IconButton
             sx={{
               position: "absolute",
@@ -135,7 +136,7 @@ const CameraWithFrame = ({ imageSource, clientLogo }: CameraWithFrameProps) => {
                 backgroundColor: "white",
               },
             }}
-            onClick={captureImage}
+            onClick={toggleCamera}
           >
             <CameraAlt />
           </IconButton>
