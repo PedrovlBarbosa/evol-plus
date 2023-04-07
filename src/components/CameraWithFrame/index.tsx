@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import { CameraAlt } from "@mui/icons-material";
-import { IconButton, ToggleButton } from "@mui/material";
+import { IconButton } from "@mui/material";
 
 interface CameraWithFrameProps {
   imageSource: string;
@@ -11,14 +11,11 @@ const CameraWithFrame = ({ imageSource, clientLogo }: CameraWithFrameProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   // alter to really get if the user is on mobile or not
   const isMobile = Boolean(navigator.userAgent.match(/Android|iPhone/i))
-  const [useFrontCamera, setUseFrontCamera] = useState(false);
+  const [useFrontCamera] = useState(false);
   const [takenPicture, setTakenPicture] = useState("");
 
   //put a switch at the camera and use it inside it
   // setUseFrontCamera(true);
-  const toggleCamera = () => {
-    setUseFrontCamera((prev) => !prev);
-  };
 
   useEffect(() => {
     const getUserMediaVideo = () => {
@@ -123,8 +120,6 @@ const CameraWithFrame = ({ imageSource, clientLogo }: CameraWithFrameProps) => {
             alt="camera"
           />
           {clientLogo && clientLogoComponent()}
-          
-          <button onClick={toggleCamera}>Alternar Câmera</button>
           
           <IconButton
             sx={{
