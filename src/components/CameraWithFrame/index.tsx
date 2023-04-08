@@ -130,8 +130,8 @@ const CameraWithFrame = ({ imageSource, clientLogo }: CameraWithFrameProps) => {
           <IconButton
             sx={{
               position: "absolute",
-              top: "10px",
-              left: "10%",
+              mt: 1,
+              ml: 1,
               transform: "translateX(-50%)",
               backgroundColor: "white",
               color: "black",
