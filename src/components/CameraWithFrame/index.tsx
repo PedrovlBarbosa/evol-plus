@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from "react";
-import { CameraAlt } from "@mui/icons-material";
-import { IconButton, ToggleButton } from "@mui/material";
+import { CameraAlt, FlipCameraAndroid } from "@mui/icons-material";
+import { IconButton } from "@mui/material";
 
 interface CameraWithFrameProps {
   imageSource: string;
@@ -12,6 +12,7 @@ const CameraWithFrame = ({ imageSource, clientLogo }: CameraWithFrameProps) => {
   // alter to really get if the user is on mobile or not
   const isMobile = Boolean(navigator.userAgent.match(/Android|iPhone/i))
   const [useFrontCamera, setUseFrontCamera] = useState(false);
+  const [isButtonRotated, setIsButtonRotated] = useState(false);
   const [takenPicture, setTakenPicture] = useState("");
 
   //put a switch at the camera and use it inside it
@@ -19,7 +20,9 @@ const CameraWithFrame = ({ imageSource, clientLogo }: CameraWithFrameProps) => {
 
   const toggleCamera = () => {
     setUseFrontCamera((prev) => !prev);
+    setIsButtonRotated((prev) => !prev);
   };
+  
 
   useEffect(() => {
     const getUserMediaVideo = () => {
@@ -128,8 +131,8 @@ const CameraWithFrame = ({ imageSource, clientLogo }: CameraWithFrameProps) => {
           <IconButton
             sx={{
               position: "absolute",
-              bottom: "16px",
-              left: "65%",
+              top: "10px",
+              left: "10%",
               transform: "translateX(-50%)",
               backgroundColor: "white",
               color: "black",
@@ -138,8 +141,9 @@ const CameraWithFrame = ({ imageSource, clientLogo }: CameraWithFrameProps) => {
               },
             }}
             onClick={toggleCamera}
+            style={{ transform: isButtonRotated ? "rotate(180deg)" : "" }}
           >
-            <CameraAlt />
+            <FlipCameraAndroid />
           </IconButton>
 
           <IconButton
