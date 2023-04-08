@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import { CameraAlt } from "@mui/icons-material";
-import { IconButton, ToggleButton } from "@mui/material";
+import { IconButton, Switch} from "@mui/material";
 
 interface CameraWithFrameProps {
   imageSource: string;
@@ -10,16 +10,15 @@ interface CameraWithFrameProps {
 const CameraWithFrame = ({ imageSource, clientLogo }: CameraWithFrameProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   // alter to really get if the user is on mobile or not
-  const isMobile = Boolean(navigator.userAgent.match(/Android|iPhone/i))
-  const [useFrontCamera, setUseFrontCamera] = useState(false);
+  const isMobile = true;
   const [takenPicture, setTakenPicture] = useState("");
+  const [useFrontCamera, setUseFrontCamera] = useState(false);
 
+const switchCamera = () => {
+  setUseFrontCamera((prevState) => !prevState);
+};
   //put a switch at the camera and use it inside it
   // setUseFrontCamera(true);
-
-  const toggleCamera = () => {
-    setUseFrontCamera((prev) => !prev);
-  };
 
   useEffect(() => {
     const getUserMediaVideo = () => {
@@ -124,24 +123,6 @@ const CameraWithFrame = ({ imageSource, clientLogo }: CameraWithFrameProps) => {
             alt="camera"
           />
           {clientLogo && clientLogoComponent()}
-          
-          <IconButton
-            sx={{
-              position: "absolute",
-              bottom: "16px",
-              left: "65%",
-              transform: "translateX(-50%)",
-              backgroundColor: "white",
-              color: "black",
-              "&:hover": {
-                backgroundColor: "white",
-              },
-            }}
-            onClick={toggleCamera}
-          >
-            <CameraAlt />
-          </IconButton>
-
           <IconButton
             sx={{
               position: "absolute",
@@ -158,6 +139,16 @@ const CameraWithFrame = ({ imageSource, clientLogo }: CameraWithFrameProps) => {
           >
             <CameraAlt />
           </IconButton>
+          <Switch
+            checked={useFrontCamera}
+            onChange={switchCamera}
+            color="primary"
+            sx={{
+              position: "absolute",
+              bottom: "16px",
+              right: "16px",
+            }}
+          />
         </div>
       )}
     </>
