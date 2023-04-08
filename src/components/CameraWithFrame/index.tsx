@@ -129,7 +129,7 @@ const CameraWithFrame = ({ imageSource, clientLogo }: CameraWithFrameProps) => {
             sx={{
               position: "absolute",
               bottom: "16px",
-              left: "50%",
+              left: "65%",
               transform: "translateX(-50%)",
               backgroundColor: "white",
               color: "black",
