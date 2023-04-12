@@ -1,6 +1,7 @@
 import { useRef, useEffect, useState } from "react";
 import { CameraAlt } from "@mui/icons-material";
 import CameraswitchIcon from '@mui/icons-material/Cameraswitch';
+import instagramIcon from "../../assets/instagramIcon.jpg";
 import { IconButton } from "@mui/material";
 
 interface CameraWithFrameProps {
@@ -11,17 +12,15 @@ interface CameraWithFrameProps {
 const CameraWithFrame = ({ imageSource, clientLogo }: CameraWithFrameProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   // alter to really get if the user is on mobile or not
-  const isMobile = Boolean(navigator.userAgent.match(/Android|iPhone/i))
-  const [useFrontCamera, setUseFrontCamera] = useState(false);
+  const isMobile = Boolean(navigator.userAgent.match(/Android|iPhone/i));
   const [takenPicture, setTakenPicture] = useState("");
-
-  //put a switch at the camera and use it inside it
-  // setUseFrontCamera(true);
+  const [useFrontCamera, setUseFrontCamera] = useState(false);
 
   const toggleCamera = () => {
     setUseFrontCamera((prev) => !prev);
   };
-  
+  //put a switch at the camera and use it inside it
+  // setUseFrontCamera(true);
 
   useEffect(() => {
     const getUserMediaVideo = () => {
@@ -98,6 +97,21 @@ const CameraWithFrame = ({ imageSource, clientLogo }: CameraWithFrameProps) => {
     ></img>
   );
 
+  const shareImage = async () => { 
+    const response = await fetch(takenPicture); 
+    const blob = await response.blob(); 
+    const file = new File([blob], 'image.jpg', {type:blob.type});
+    const data = {
+      files: [file,],
+      title: 'Compartilhar',
+    };
+    try {
+      await navigator.share(data);
+   } catch (err) {
+     console.error(err);
+   }
+  };
+
   return (
     <>
       {takenPicture ? (
@@ -108,6 +122,27 @@ const CameraWithFrame = ({ imageSource, clientLogo }: CameraWithFrameProps) => {
             style={{ ...objectsStyles }}
           ></img>
           {clientLogo && clientLogoComponent()}
+
+          <IconButton
+            sx={{
+              position: "absolute",
+              bottom: "16px",
+              left: "50%",
+              transform: "translateX(-50%)",
+              backgroundColor: "white",
+              color: "black",
+              "&:hover": {
+                backgroundColor: "white",
+              },
+            }}
+            onClick={shareImage}
+          >
+            <img
+              src={instagramIcon}
+              alt="instagramIcon"
+              style={{ width: "24px", height: "24px" }}
+            />
+          </IconButton>
         </div>
       ) : (
         <div style={{ position: "relative" }}>
@@ -126,24 +161,6 @@ const CameraWithFrame = ({ imageSource, clientLogo }: CameraWithFrameProps) => {
             alt="camera"
           />
           {clientLogo && clientLogoComponent()}
-          
-          <IconButton
-            sx={{
-              position: "absolute",
-              mt: 1,
-              ml: 1,
-              transform: "translateX(-50%)",
-              backgroundColor: "white",
-              color: "black",
-              "&:hover": {
-                backgroundColor: "white",
-              },
-            }}
-            onClick={toggleCamera}
-          >
-            <CameraswitchIcon />
-          </IconButton>
-
           <IconButton
             sx={{
               position: "absolute",
@@ -159,6 +176,25 @@ const CameraWithFrame = ({ imageSource, clientLogo }: CameraWithFrameProps) => {
             onClick={captureImage}
           >
             <CameraAlt />
+          </IconButton>
+
+          <IconButton
+            sx={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              mt: 1,
+              ml: 3.3,
+              transform: "translateX(-50%)",
+              backgroundColor: "white",
+              color: "black",
+              "&:hover": {
+                backgroundColor: "white",
+              },
+            }}
+            onClick={toggleCamera}
+          >
+            <CameraswitchIcon />
           </IconButton>
         </div>
       )}
