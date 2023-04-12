@@ -3,11 +3,15 @@ import { CameraAlt } from "@mui/icons-material";
 import CameraswitchIcon from '@mui/icons-material/Cameraswitch';
 import instagramIcon from "../../assets/instagramIcon.jpg";
 import { IconButton } from "@mui/material";
+import { CSSProperties } from 'react';;
+
 
 interface CameraWithFrameProps {
   imageSource: string;
   clientLogo?: string;
 }
+
+type Dimensions = Pick<CSSProperties, 'width' | 'aspectRatio'>;
 
 const CameraWithFrame = ({ imageSource, clientLogo }: CameraWithFrameProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -15,6 +19,7 @@ const CameraWithFrame = ({ imageSource, clientLogo }: CameraWithFrameProps) => {
   const isMobile = Boolean(navigator.userAgent.match(/Android|iPhone/i));
   const [takenPicture, setTakenPicture] = useState("");
   const [useFrontCamera, setUseFrontCamera] = useState(false);
+  const [frameDimensions, setFrameDimensions] = useState<Dimensions>({ width: "100%", aspectRatio: "auto" });
 
   const toggleCamera = () => {
     setUseFrontCamera((prev) => !prev);
@@ -31,11 +36,21 @@ const CameraWithFrame = ({ imageSource, clientLogo }: CameraWithFrameProps) => {
       return true;
     };
 
+    const setFrameDimensionsFromDevice = ({ width, height }: MediaTrackSettings): void => {
+      setFrameDimensions({
+        width:       '100%',
+        aspectRatio: `${width} / ${height}`,
+      });
+    };
+
     let stream: MediaStream | undefined;
     navigator.mediaDevices
       .getUserMedia({ video: getUserMediaVideo() })
       .then((mediaStream) => {
         stream = mediaStream;
+
+        setFrameDimensionsFromDevice(stream.getVideoTracks()[0].getSettings());
+
         if (videoRef.current) {
           videoRef.current.srcObject = stream;
         }
@@ -55,12 +70,6 @@ const CameraWithFrame = ({ imageSource, clientLogo }: CameraWithFrameProps) => {
   const objectsStyles = {
     width: "100%",
     height: "100%",
-  };
-
-  const getVideoStyle = () => {
-    return useFrontCamera
-      ? { ...objectsStyles, transform: "scaleX(-1)" }
-      : objectsStyles;
   };
 
   const captureImage = () => {
@@ -97,9 +106,9 @@ const CameraWithFrame = ({ imageSource, clientLogo }: CameraWithFrameProps) => {
     ></img>
   );
 
-  const shareImage = async () => { 
-    const response = await fetch(takenPicture); 
-    const blob = await response.blob(); 
+  const shareImage = async () => {
+    const response = await fetch(takenPicture);
+    const blob = await response.blob();
     const file = new File([blob], 'image.jpg', {type:blob.type});
     const data = {
       files: [file,],
@@ -146,10 +155,10 @@ const CameraWithFrame = ({ imageSource, clientLogo }: CameraWithFrameProps) => {
         </div>
       ) : (
         <div style={{ position: "relative" }}>
-          <video ref={videoRef} autoPlay muted style={getVideoStyle()} />
+          <video ref={videoRef} autoPlay muted style={{ ...frameDimensions }} />
           <img
             style={{
-              ...objectsStyles,
+              ...frameDimensions,
               position: "absolute",
               top: "50%",
               left: "50%",
