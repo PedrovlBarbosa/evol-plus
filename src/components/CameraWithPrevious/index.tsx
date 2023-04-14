@@ -165,6 +165,7 @@ export const CameraWithPrevious = ({ imagePrevious, clientLogo }: CameraWithPrev
                   transform: "translate(-50%, -50%)",
                   filter: "invert(100%)",
                   objectFit: "contain",
+                  opacity: "0.3",
                 }}
                 src={imagePrevious}
                 alt="camera"

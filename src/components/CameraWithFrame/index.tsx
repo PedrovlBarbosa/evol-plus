@@ -104,14 +104,22 @@ const CameraWithFrame = ({ imageSource, clientLogo }: CameraWithFrameProps) => {
         width: "64px",
         height: "64px",
         objectFit: "contain",
+        opacity: "0.3",
       }}
     ></img>
   );
 
   const addPrevious = () => (
-    <CameraWithPrevious
-      imagePrevious={takenPicture}
-      clientLogo={clientLogo}/>
+    <Card sx={{ position: "relative", width: "100%", height: "100%" }}>
+            <CardContent
+              component={() => (
+                <CameraWithPrevious
+                  imagePrevious={takenPicture}
+                  clientLogo={clientLogo}
+                ></CameraWithPrevious>
+              )}
+            ></CardContent>
+          </Card>
   );
 
   return (
@@ -155,6 +163,7 @@ const CameraWithFrame = ({ imageSource, clientLogo }: CameraWithFrameProps) => {
               transform: "translate(-50%, -50%)",
               filter: "invert(100%)",
               objectFit: "contain",
+              opacity: "0.3",
             }}
             src={imageSource}
             alt="camera"
