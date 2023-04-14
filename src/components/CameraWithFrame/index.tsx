@@ -22,6 +22,7 @@ const CameraWithFrame = ({ imageSource, clientLogo }: CameraWithFrameProps) => {
   const [takenPicture, setTakenPicture] = useState("");
   const [useFrontCamera, setUseFrontCamera] = useState(false);
   const [frameDimensions, setFrameDimensions] = useState<Dimensions>({ width: "100%", aspectRatio: "auto" });
+  const [showCameraWithPrevious, setShowCameraWithPrevious] = useState(false);
 
   const toggleCamera = () => {
     setUseFrontCamera((prev) => !prev);
@@ -110,16 +111,7 @@ const CameraWithFrame = ({ imageSource, clientLogo }: CameraWithFrameProps) => {
   );
 
   const addPrevious = () => (
-    <Card sx={{ position: "relative", width: "100%", height: "100%" }}>
-            <CardContent
-              component={() => (
-                <CameraWithPrevious
-                  imagePrevious={takenPicture}
-                  clientLogo={clientLogo}
-                ></CameraWithPrevious>
-              )}
-            ></CardContent>
-          </Card>
+    setShowCameraWithPrevious(true)
   );
 
   return (
@@ -149,7 +141,13 @@ const CameraWithFrame = ({ imageSource, clientLogo }: CameraWithFrameProps) => {
           >
             <AddAPhotoIcon />
           </IconButton>
-
+      {showCameraWithPrevious &&
+        <CameraWithPrevious
+          imagePrevious={takenPicture}
+          clientLogo={clientLogo}
+        ></CameraWithPrevious>
+      }
+      
         </div>
       ) : (
         <div style={{ position: "relative" }}>
