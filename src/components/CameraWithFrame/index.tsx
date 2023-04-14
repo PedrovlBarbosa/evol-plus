@@ -2,8 +2,10 @@ import { useRef, useEffect, useState } from "react";
 import { CameraAlt } from "@mui/icons-material";
 import CameraswitchIcon from '@mui/icons-material/Cameraswitch';
 import instagramIcon from "../../assets/instagramIcon.jpg";
-import { IconButton } from "@mui/material";
-import { CSSProperties } from 'react';;
+import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
+import { Card, CardContent, IconButton } from "@mui/material";
+import { CSSProperties } from 'react';
+import { CameraWithPrevious } from "../CameraWithPrevious";
 
 
 interface CameraWithFrameProps {
@@ -106,20 +108,11 @@ const CameraWithFrame = ({ imageSource, clientLogo }: CameraWithFrameProps) => {
     ></img>
   );
 
-  const shareImage = async () => {
-    const response = await fetch(takenPicture);
-    const blob = await response.blob();
-    const file = new File([blob], 'image.jpg', {type:blob.type});
-    const data = {
-      files: [file,],
-      title: 'Compartilhar',
-    };
-    try {
-      await navigator.share(data);
-   } catch (err) {
-     console.error(err);
-   }
-  };
+  const addPrevious = () => (
+    <CameraWithPrevious
+      imagePrevious={takenPicture}
+      clientLogo={clientLogo}/>
+  );
 
   return (
     <>
@@ -144,14 +137,11 @@ const CameraWithFrame = ({ imageSource, clientLogo }: CameraWithFrameProps) => {
                 backgroundColor: "white",
               },
             }}
-            onClick={shareImage}
+            onClick={addPrevious}
           >
-            <img
-              src={instagramIcon}
-              alt="instagramIcon"
-              style={{ width: "24px", height: "24px" }}
-            />
+            <AddAPhotoIcon />
           </IconButton>
+
         </div>
       ) : (
         <div style={{ position: "relative" }}>
