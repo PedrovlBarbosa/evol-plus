@@ -5,7 +5,7 @@ import instagramIcon from "../../assets/instagramIcon.jpg";
 import { IconButton } from "@mui/material";
 import { CSSProperties } from 'react';
 
-interface CameraWithPreviousProps {
+export interface CameraWithPreviousProps {
     imagePrevious: string;
     clientLogo?: string;
   }

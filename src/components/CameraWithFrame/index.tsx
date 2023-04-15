@@ -7,14 +7,14 @@ import { CSSProperties } from 'react';
 import { CameraWithPrevious } from "../CameraWithPrevious";
 
 
-interface CameraWithFrameProps {
+export interface CameraWithFrameProps {
   imageSource: string;
   clientLogo?: string;
 }
 
 type Dimensions = Pick<CSSProperties, 'width' | 'aspectRatio'>;
 
-const CameraWithFrame = ({ imageSource, clientLogo }: CameraWithFrameProps) => {
+export const CameraWithFrame = ({ imageSource, clientLogo }: CameraWithFrameProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   // alter to really get if the user is on mobile or not
   const isMobile = Boolean(navigator.userAgent.match(/Android|iPhone/i));
@@ -140,14 +140,12 @@ const CameraWithFrame = ({ imageSource, clientLogo }: CameraWithFrameProps) => {
           >
             <AddAPhotoIcon />
           </IconButton>
-      {showCameraWithPrevious ? (
+      {showCameraWithPrevious &&
         <CameraWithPrevious
           imagePrevious={takenPicture}
           clientLogo={clientLogo}
         ></CameraWithPrevious>
-        ) : (
-          <>PreviousPicture</>
-        )
+        
       }
       
         </div>
