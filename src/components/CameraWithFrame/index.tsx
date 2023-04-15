@@ -1,9 +1,8 @@
 import { useRef, useEffect, useState } from "react";
 import { CameraAlt } from "@mui/icons-material";
 import CameraswitchIcon from '@mui/icons-material/Cameraswitch';
-import instagramIcon from "../../assets/instagramIcon.jpg";
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
-import { Card, CardContent, IconButton } from "@mui/material";
+import { IconButton } from "@mui/material";
 import { CSSProperties } from 'react';
 import { CameraWithPrevious } from "../CameraWithPrevious";
 
@@ -110,9 +109,9 @@ const CameraWithFrame = ({ imageSource, clientLogo }: CameraWithFrameProps) => {
     ></img>
   );
 
-  const addPrevious = () => (
-    setShowCameraWithPrevious(true)
-  );
+  // const addPrevious = () => (
+  //   setShowCameraWithPrevious(true)
+  // );
 
   return (
     <>
@@ -137,7 +136,7 @@ const CameraWithFrame = ({ imageSource, clientLogo }: CameraWithFrameProps) => {
                 backgroundColor: "white",
               },
             }}
-            onClick={addPrevious}
+            onClick={() => setShowCameraWithPrevious(!showCameraWithPrevious)}
           >
             <AddAPhotoIcon />
           </IconButton>
@@ -147,7 +146,7 @@ const CameraWithFrame = ({ imageSource, clientLogo }: CameraWithFrameProps) => {
           clientLogo={clientLogo}
         ></CameraWithPrevious>
       }
-      
+        {showCameraWithPrevious ? <CameraWithFrame imageSource={""} /> : <CameraWithPrevious imagePrevious={""} />}
         </div>
       ) : (
         <div style={{ position: "relative" }}>
