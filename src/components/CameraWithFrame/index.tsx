@@ -109,9 +109,9 @@ const CameraWithFrame = ({ imageSource, clientLogo }: CameraWithFrameProps) => {
     ></img>
   );
 
-  // const addPrevious = () => (
-  //   setShowCameraWithPrevious(true)
-  // );
+  const addPrevious = () => (
+    setShowCameraWithPrevious(true)
+  );
 
   return (
     <>
@@ -136,7 +136,7 @@ const CameraWithFrame = ({ imageSource, clientLogo }: CameraWithFrameProps) => {
                 backgroundColor: "white",
               },
             }}
-            onClick={() => setShowCameraWithPrevious(!showCameraWithPrevious)}
+            onClick={addPrevious}
           >
             <AddAPhotoIcon />
           </IconButton>
@@ -146,7 +146,7 @@ const CameraWithFrame = ({ imageSource, clientLogo }: CameraWithFrameProps) => {
           clientLogo={clientLogo}
         ></CameraWithPrevious>
       }
-        {showCameraWithPrevious ? <CameraWithFrame imageSource={imageSource} clientLogo={clientLogo} /> : <CameraWithPrevious imagePrevious={takenPicture} clientLogo={clientLogo}  />}
+      
         </div>
       ) : (
         <div style={{ position: "relative" }}>
