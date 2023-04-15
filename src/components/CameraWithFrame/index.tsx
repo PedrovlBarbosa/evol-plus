@@ -4,7 +4,7 @@ import CameraswitchIcon from '@mui/icons-material/Cameraswitch';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import { IconButton } from "@mui/material";
 import { CSSProperties } from 'react';
-import { CameraWithPrevious } from "../CameraWithPrevious";
+import CameraWithPrevious from "../CameraWithPrevious";
 
 
 export interface CameraWithFrameProps {
