@@ -109,9 +109,9 @@ const CameraWithFrame = ({ imageSource, clientLogo }: CameraWithFrameProps) => {
     ></img>
   );
 
-  const addPrevious = () => (
-    setShowCameraWithPrevious(true)
-  );
+  const addPrevious = () => {
+    setShowCameraWithPrevious(true);
+  };
 
   return (
     <>
