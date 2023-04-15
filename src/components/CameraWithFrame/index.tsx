@@ -140,11 +140,14 @@ const CameraWithFrame = ({ imageSource, clientLogo }: CameraWithFrameProps) => {
           >
             <AddAPhotoIcon />
           </IconButton>
-      {showCameraWithPrevious &&
+      {showCameraWithPrevious ? (
         <CameraWithPrevious
           imagePrevious={takenPicture}
           clientLogo={clientLogo}
         ></CameraWithPrevious>
+        ) : (
+          <>PreviousPicture</>
+        )
       }
       
         </div>
