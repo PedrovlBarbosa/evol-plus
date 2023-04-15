@@ -146,7 +146,7 @@ const CameraWithFrame = ({ imageSource, clientLogo }: CameraWithFrameProps) => {
           clientLogo={clientLogo}
         ></CameraWithPrevious>
       }
-        {showCameraWithPrevious ? <CameraWithFrame imageSource={""} /> : <CameraWithPrevious imagePrevious={""} />}
+        {showCameraWithPrevious ? <CameraWithFrame imageSource={imageSource} clientLogo={clientLogo} /> : <CameraWithPrevious imagePrevious={takenPicture} clientLogo={clientLogo}  />}
         </div>
       ) : (
         <div style={{ position: "relative" }}>
